@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.oge_sine_theorem.model.SineCount
+import kotlin.math.abs
 
 @Composable
 public fun NamePage (navController: NavHostController){
@@ -248,8 +250,11 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
 
             val result = SineCount(sides, angles)
             println(result)
+            navController.navigate("resultPage/$A/$B/$C/" +
+                    "${result[0]}/${result[1]}/${result[2]}/" +
+                    "${result[3]}/${result[4]}/${result[5]}")
         }) {
-            Text("Проверить")
+            Text("Посчитать")
         }
     }
 
@@ -257,5 +262,58 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
 
 @Composable
 fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
+    Column (modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
+        Spacer(modifier = Modifier.height(150.dp))
+        Text(text = "Результат", fontSize = 32.sp, fontWeight = FontWeight.Bold)
+        Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly){
+            val ab=result[0]
+            val bc = result[1]
+            val ac = result[2]
+            if (!(abs(ab)<0.00001)) {
+                Text(text = "$A$B = $ab", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "$A$B = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
 
+            if (!(abs(bc)<0.00001)) {
+                Text(text = "$B$C = $bc", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "$B$C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+
+            if (!(abs(ac)<0.00001)) {
+                Text(text = "$A$C = $ac", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "$A$C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+        }
+        Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly){
+            val a=result[3]
+            val b = result[4]
+            val c = result[5]
+            if (!(abs(a)<0.00001)) {
+                Text(text = "угол $A = $a", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "угол $A = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+
+            if (!(abs(b)<0.00001)) {
+                Text(text = "угол $B = $b", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "угол $B = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+
+            if (!(abs(c)<0.00001)) {
+                Text(text = "угол $C = $c", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "угол $C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+        }
+    }
 }

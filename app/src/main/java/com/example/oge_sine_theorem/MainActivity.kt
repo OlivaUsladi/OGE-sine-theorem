@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.oge_sine_theorem.ui.theme.CanvasPage
 import com.example.oge_sine_theorem.ui.theme.NamePage
 import com.example.oge_sine_theorem.ui.theme.OGE_sine_theoremTheme
+import com.example.oge_sine_theorem.ui.theme.ResultPage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,29 @@ fun AppNavigation(navController: NavHostController) {
             val b = stackEntry.arguments?.getString("b") ?: "B"
             val c = stackEntry.arguments?.getString("c") ?: "C"
             CanvasPage(navController = navController, A = a, B = b, C = c)
+        }
+        composable("resultPage/{a}/{b}/{c}/{ab}/{bc}/{ac}/{angleA}/{angleB}/{angleC}") { backStackEntry ->
+            val a = backStackEntry.arguments?.getString("a") ?: "A"
+            val b = backStackEntry.arguments?.getString("b") ?: "B"
+            val c = backStackEntry.arguments?.getString("c") ?: "C"
+
+            val abStr = backStackEntry.arguments?.getString("ab") ?: "0.0"
+            val bcStr = backStackEntry.arguments?.getString("bc") ?: "0.0"
+            val acStr = backStackEntry.arguments?.getString("ac") ?: "0.0"
+            val angleAStr = backStackEntry.arguments?.getString("angleA") ?: "0.0"
+            val angleBStr = backStackEntry.arguments?.getString("angleB") ?: "0.0"
+            val angleCStr = backStackEntry.arguments?.getString("angleC") ?: "0.0"
+
+            val result = arrayListOf(
+                abStr.toDoubleOrNull() ?: 0.0,
+                bcStr.toDoubleOrNull() ?: 0.0,
+                acStr.toDoubleOrNull() ?: 0.0,
+                angleAStr.toDoubleOrNull() ?: 0.0,
+                angleBStr.toDoubleOrNull() ?: 0.0,
+                angleCStr.toDoubleOrNull() ?: 0.0
+            )
+
+            ResultPage(result = result, A = a, B = b, C = c)
         }
     }
 }
