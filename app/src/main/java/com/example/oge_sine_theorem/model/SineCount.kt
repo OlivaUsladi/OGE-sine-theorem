@@ -4,6 +4,16 @@ import kotlin.math.abs
 import kotlin.math.sin
 
 fun SineCount(sides: ArrayList<Double>, angles: ArrayList<Double>): ArrayList<Double> {
+    if (!(abs(angles[2]) < 0.000001) && !(abs(angles[0]) < 0.000001) && (abs(angles[1]) < 0.000001)){
+        angles[1] = 180.0 - angles[0] - angles[2]
+    }
+    else if (!(abs(angles[2]) < 0.000001) && !(abs(angles[1]) < 0.000001) && (abs(angles[0]) < 0.000001)){
+        angles[0] = 180.0 - angles[1] - angles[2]
+    }
+    else if (!(abs(angles[0]) < 0.000001) && !(abs(angles[1]) < 0.000001) && (abs(angles[2]) < 0.000001)){
+        angles[2] = 180.0 - angles[1] - angles[0]
+    }
+
     if (abs(sides[0]) < 0.000001){
         if (!(abs(sides[1]) < 0.000001) && !(abs(angles[2]) < 0.000001) && !(abs(angles[0]) < 0.000001)){
             sides[0]=(sides[1]* sin(Math.toRadians(angles[2])))/sin(Math.toRadians(angles[0]))

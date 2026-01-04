@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.oge_sine_theorem.model.SineCount
 import kotlin.math.abs
+import kotlin.math.sqrt
 
 @Composable
 public fun NamePage (navController: NavHostController){
@@ -138,6 +139,8 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
+        Text(text = "Примечание: если в числе есть корень, то вместо значка корня пишите букву s", fontSize = 16.sp)
+        Spacer(modifier = Modifier.height(15.dp))
         Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly){
             Column {
                 Text(text="$A$B", fontSize = 14.sp)
@@ -206,6 +209,10 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val ab = AB.value.split("/")
                 ABDouble.value = ab[0].toDouble()/ab[1].toDouble()
             }
+            else if (AB.value.contains("s")){
+                val ab = AB.value.split("s")
+                ABDouble.value = ab[0].toDouble()* sqrt( ab[1].toDouble())
+            }
             else{
                 ABDouble.value = AB.value.toDouble()
             }
@@ -218,6 +225,10 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val bc = BC.value.split("/")
                 BCDouble.value = bc[0].toDouble()/bc[1].toDouble()
             }
+            else if (BC.value.contains("s")){
+                val bc = BC.value.split("s")
+                BCDouble.value = bc[0].toDouble() * sqrt( bc[1].toDouble())
+            }
             else{
                 BCDouble.value = BC.value.toDouble()
             }
@@ -229,6 +240,10 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
             else if (AC.value.contains("/")){
                 val ac = AC.value.split("/")
                 ACDouble.value = ac[0].toDouble()/ac[1].toDouble()
+            }
+            else if (AC.value.contains("s")){
+                val ac = AC.value.split("s")
+                ACDouble.value = ac[0].toDouble()* sqrt( ac[1].toDouble())
             }
             else{
                 ACDouble.value = AC.value.toDouble()
@@ -266,7 +281,7 @@ fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
         Spacer(modifier = Modifier.height(150.dp))
         Text(text = "Результат", fontSize = 32.sp, fontWeight = FontWeight.Bold)
         Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly){
-            val ab=result[0]
+            val ab = result[0]
             val bc = result[1]
             val ac = result[2]
             if (!(abs(ab)<0.00001)) {
@@ -291,7 +306,7 @@ fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
             }
         }
         Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly){
-            val a=result[3]
+            val a = result[3]
             val b = result[4]
             val c = result[5]
             if (!(abs(a)<0.00001)) {
