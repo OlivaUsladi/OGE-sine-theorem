@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Добавить возможность введения синуса (косинуса)?
+//Высчитывание радиуса описанной окружности
 @Composable
 fun AppNavigation(navController: NavHostController) {
     NavHost(
@@ -46,7 +48,7 @@ fun AppNavigation(navController: NavHostController) {
             val c = stackEntry.arguments?.getString("c") ?: "C"
             CanvasPage(navController = navController, A = a, B = b, C = c)
         }
-        composable("resultPage/{a}/{b}/{c}/{ab}/{bc}/{ac}/{angleA}/{angleB}/{angleC}") { backStackEntry ->
+        composable("resultPage/{a}/{b}/{c}/{ab}/{bc}/{ac}/{angleA}/{angleB}/{angleC}/{R}") { backStackEntry ->
             val a = backStackEntry.arguments?.getString("a") ?: "A"
             val b = backStackEntry.arguments?.getString("b") ?: "B"
             val c = backStackEntry.arguments?.getString("c") ?: "C"
@@ -58,13 +60,16 @@ fun AppNavigation(navController: NavHostController) {
             val angleBStr = backStackEntry.arguments?.getString("angleB") ?: "0.0"
             val angleCStr = backStackEntry.arguments?.getString("angleC") ?: "0.0"
 
+            val R = backStackEntry.arguments?.getString("R") ?: "0.0"
+
             val result = arrayListOf(
                 abStr.toDoubleOrNull() ?: 0.0,
                 bcStr.toDoubleOrNull() ?: 0.0,
                 acStr.toDoubleOrNull() ?: 0.0,
                 angleAStr.toDoubleOrNull() ?: 0.0,
                 angleBStr.toDoubleOrNull() ?: 0.0,
-                angleCStr.toDoubleOrNull() ?: 0.0
+                angleCStr.toDoubleOrNull() ?: 0.0,
+                R.toDouble()
             )
 
             ResultPage(result = result, A = a, B = b, C = c)

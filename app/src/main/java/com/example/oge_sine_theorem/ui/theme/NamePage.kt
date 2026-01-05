@@ -267,7 +267,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
             println(result)
             navController.navigate("resultPage/$A/$B/$C/" +
                     "${result[0]}/${result[1]}/${result[2]}/" +
-                    "${result[3]}/${result[4]}/${result[5]}")
+                    "${result[3]}/${result[4]}/${result[5]}/${result[6]}")
         }) {
             Text("Посчитать")
         }
@@ -328,6 +328,15 @@ fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
             }
             else {
                 Text(text = "угол $C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+        }
+        Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceEvenly){
+            val R = result[6]
+            if (!(abs(R)<0.00001)) {
+                Text(text = "R = ${String.format("%.4f", R)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+            }
+            else {
+                Text(text = "R = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
         }
     }
