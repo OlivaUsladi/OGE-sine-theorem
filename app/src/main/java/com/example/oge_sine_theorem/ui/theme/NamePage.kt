@@ -2,7 +2,6 @@ package com.example.oge_sine_theorem.ui.theme
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,17 +21,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -95,6 +90,12 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
     val BC = remember{mutableStateOf("0")}
     val AC = remember{mutableStateOf("0")}
 
+    val Asin = remember{mutableStateOf("0")}
+    val Bsin = remember{mutableStateOf("0")}
+    val Csin = remember{mutableStateOf("0")}
+
+    val R = remember { mutableStateOf("0") }
+
     val ADouble = remember{mutableStateOf(0.0)}
     val BDouble = remember{mutableStateOf(0.0)}
     val CDouble = remember{mutableStateOf(0.0)}
@@ -102,6 +103,12 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
     val ABDouble = remember{mutableStateOf(0.0)}
     val BCDouble = remember{mutableStateOf(0.0)}
     val ACDouble = remember{mutableStateOf(0.0)}
+
+    val AsinDouble = remember{mutableStateOf(0.0)}
+    val BsinDouble = remember{mutableStateOf(0.0)}
+    val CsinDouble = remember{mutableStateOf(0.0)}
+
+    val RDouble = remember { mutableStateOf(0.0) }
 
     Column (modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
         Spacer(modifier = Modifier.height(50.dp))
@@ -200,18 +207,48 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 )
             }
         }
+        Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly){
+            Column {
+                Text(text="sin $A", fontSize = 14.sp)
+                TextField(
+                    modifier = Modifier.width(100.dp),
+                    value = Asin.value,
+                    textStyle = TextStyle(fontSize = 25.sp),
+                    onValueChange = { newText -> Asin.value = newText }
+                )
+            }
+            Column {
+                Text(text="sin $B", fontSize = 14.sp)
+                TextField(
+                    modifier = Modifier.width(100.dp),
+                    value = Bsin.value,
+                    textStyle = TextStyle(fontSize = 25.sp),
+                    onValueChange = { newText -> Bsin.value = newText }
+                )
+            }
+            Column {
+                Text(text="sin $C", fontSize = 14.sp)
+                TextField(
+                    modifier = Modifier.width(100.dp),
+                    value = Csin.value,
+                    textStyle = TextStyle(fontSize = 25.sp),
+                    onValueChange = { newText -> Csin.value = newText }
+                )
+            }
+        }
         Button(onClick = {
+            //стороны
             if (AB.value.contains(".") || AB.value.contains(",")){
                 AB.value.replace(",", ".")
                 ABDouble.value = AB.value.toDouble()
             }
-            else if (AB.value.contains("/")){
-                val ab = AB.value.split("/")
-                ABDouble.value = ab[0].toDouble()/ab[1].toDouble()
-            }
             else if (AB.value.contains("s")){
                 val ab = AB.value.split("s")
                 ABDouble.value = ab[0].toDouble()* sqrt( ab[1].toDouble())
+            }
+            if (AB.value.contains("/")){
+                val ab = AB.value.split("/")
+                ABDouble.value = ab[0].toDouble()/ab[1].toDouble()
             }
             else{
                 ABDouble.value = AB.value.toDouble()
@@ -221,13 +258,13 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 BC.value.replace(",", ".")
                 BCDouble.value = BC.value.toDouble()
             }
-            else if (BC.value.contains("/")){
-                val bc = BC.value.split("/")
-                BCDouble.value = bc[0].toDouble()/bc[1].toDouble()
-            }
             else if (BC.value.contains("s")){
                 val bc = BC.value.split("s")
                 BCDouble.value = bc[0].toDouble() * sqrt( bc[1].toDouble())
+            }
+            if (BC.value.contains("/")){
+                val bc = BC.value.split("/")
+                BCDouble.value = bc[0].toDouble()/bc[1].toDouble()
             }
             else{
                 BCDouble.value = BC.value.toDouble()
@@ -237,24 +274,75 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 AC.value.replace(",", ".")
                 ACDouble.value = AC.value.toDouble()
             }
-            else if (AC.value.contains("/")){
-                val ac = AC.value.split("/")
-                ACDouble.value = ac[0].toDouble()/ac[1].toDouble()
-            }
             else if (AC.value.contains("s")){
                 val ac = AC.value.split("s")
                 ACDouble.value = ac[0].toDouble()* sqrt( ac[1].toDouble())
+            }
+            if (AC.value.contains("/")){
+                val ac = AC.value.split("/")
+                ACDouble.value = ac[0].toDouble()/ac[1].toDouble()
             }
             else{
                 ACDouble.value = AC.value.toDouble()
             }
 
+            //синусы
+            if (Asin.value.contains(".") || Asin.value.contains(",")){
+                Asin.value.replace(",", ".")
+                AsinDouble.value = Asin.value.toDouble()
+            }
+            else if (Asin.value.contains("s")){
+                val asin = Asin.value.split("s")
+                AsinDouble.value = asin[0].toDouble()* sqrt( asin[1].toDouble())
+            }
+            if (Asin.value.contains("/")){
+                val asin = Asin.value.split("/")
+                AsinDouble.value = asin[0].toDouble()/asin[1].toDouble()
+            }
+            else{
+                AsinDouble.value = Asin.value.toDouble()
+            }
+
+            if (Bsin.value.contains(".") || Bsin.value.contains(",")){
+                Bsin.value.replace(",", ".")
+                BsinDouble.value = Bsin.value.toDouble()
+            }
+            else if (Bsin.value.contains("s")){
+                val bsin = Bsin.value.split("s")
+                BsinDouble.value = bsin[0].toDouble()* sqrt( bsin[1].toDouble())
+            }
+            if (Bsin.value.contains("/")){
+                val bsin = Bsin.value.split("/")
+                BsinDouble.value = bsin[0].toDouble()/bsin[1].toDouble()
+            }
+            else{
+                BsinDouble.value = Bsin.value.toDouble()
+            }
+
+            if (Csin.value.contains(".") || Csin.value.contains(",")){
+                Csin.value.replace(",", ".")
+                CsinDouble.value = Csin.value.toDouble()
+            }
+            else if (Csin.value.contains("s")){
+                val csin = Csin.value.split("s")
+                CsinDouble.value = csin[0].toDouble()* sqrt( csin[1].toDouble())
+            }
+            if (Csin.value.contains("/")){
+                val csin = Csin.value.split("/")
+                CsinDouble.value = csin[0].toDouble()/csin[1].toDouble()
+            }
+            else{
+                CsinDouble.value = Csin.value.toDouble()
+            }
+
+            //углы
             ADouble.value = Aangle.value.toDouble()
             BDouble.value = Bangle.value.toDouble()
             CDouble.value = Cangle.value.toDouble()
 
             val sides = ArrayList<Double>()
             val angles = ArrayList<Double>()
+            val sins = ArrayList<Double>()
             sides.add(ABDouble.value)
             sides.add(BCDouble.value)
             sides.add(ACDouble.value)
@@ -263,7 +351,11 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
             angles.add(BDouble.value)
             angles.add(CDouble.value)
 
-            val result = SineCount(sides, angles)
+            sins.add(AsinDouble.value)
+            sins.add(BsinDouble.value)
+            sins.add(CsinDouble.value)
+
+            val result = SineCount(sides, angles, sins, RDouble)
             println(result)
             navController.navigate("resultPage/$A/$B/$C/" +
                     "${result[0]}/${result[1]}/${result[2]}/" +
@@ -285,21 +377,21 @@ fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
             val bc = result[1]
             val ac = result[2]
             if (!(abs(ab)<0.00001)) {
-                Text(text = "$A$B = $ab", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "$A$B = ${String.format("%.4f", ab)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "$A$B = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
 
             if (!(abs(bc)<0.00001)) {
-                Text(text = "$B$C = $bc", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "$B$C = ${String.format("%.4f", bc)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "$B$C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
 
             if (!(abs(ac)<0.00001)) {
-                Text(text = "$A$C = $ac", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "$A$C = ${String.format("%.4f", ac)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "$A$C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
@@ -310,21 +402,21 @@ fun ResultPage(result: ArrayList<Double>, A: String, B: String, C: String){
             val b = result[4]
             val c = result[5]
             if (!(abs(a)<0.00001)) {
-                Text(text = "угол $A = $a", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "угол $A = ${String.format("%.4f", a)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "угол $A = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
 
             if (!(abs(b)<0.00001)) {
-                Text(text = "угол $B = $b", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "угол $B = ${String.format("%.4f", b)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "угол $B = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
 
             if (!(abs(c)<0.00001)) {
-                Text(text = "угол $C = $c", fontSize = 24.sp, fontFamily = FontFamily.Serif)
+                Text(text = "угол $C = ${String.format("%.4f", c)}", fontSize = 24.sp, fontFamily = FontFamily.Serif)
             }
             else {
                 Text(text = "угол $C = нет данных", fontSize = 24.sp, fontFamily = FontFamily.Serif)

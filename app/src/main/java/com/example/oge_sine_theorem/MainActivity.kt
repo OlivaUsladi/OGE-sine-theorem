@@ -31,8 +31,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Высчитывание углов
 //Добавить возможность введения синуса (косинуса)?
-//Высчитывание радиуса описанной окружности
 @Composable
 fun AppNavigation(navController: NavHostController) {
     NavHost(
