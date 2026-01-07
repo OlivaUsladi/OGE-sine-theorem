@@ -15,11 +15,18 @@ fun SineCount(sides: ArrayList<Double>, angles: ArrayList<Double>, sins: ArrayLi
         sides[0] = (sides[2] * sins[2])/sins[1]
     }
 
-    if ((abs(sides[0])<0.000001) && !(abs(sins[0])<0.000001) && !(abs(sins[2])<0.000001) && !(abs(sides[1])<0.000001)){
-        sides[0] = (sides[1] * sins[2])/sins[0]
+    if ((abs(sides[1])<0.000001) && !(abs(sins[0])<0.000001) && !(abs(sins[2])<0.000001) && !(abs(sides[0])<0.000001)){
+        sides[1] = (sides[0] * sins[0])/sins[2]
     }
-    else if ((abs(sides[0])<0.000001) && !(abs(sins[1])<0.000001) && !(abs(sins[2])<0.000001) && !(abs(sides[2])<0.000001)){
-        sides[0] = (sides[2] * sins[2])/sins[1]
+    else if ((abs(sides[1])<0.000001) && !(abs(sins[1])<0.000001) && !(abs(sins[0])<0.000001) && !(abs(sides[2])<0.000001)){
+        sides[1] = (sides[2] * sins[0])/sins[1]
+    }
+
+    if ((abs(sides[2])<0.000001) && !(abs(sins[0])<0.000001) && !(abs(sins[1])<0.000001) && !(abs(sides[1])<0.000001)){
+        sides[2] = (sides[1] * sins[1])/sins[0]
+    }
+    else if ((abs(sides[2])<0.000001) && !(abs(sins[1])<0.000001) && !(abs(sins[2])<0.000001) && !(abs(sides[0])<0.000001)){
+        sides[2] = (sides[0] * sins[1])/sins[2]
     }
 
     //подсчёт синусы+стороны+углы
@@ -67,6 +74,19 @@ fun SineCount(sides: ArrayList<Double>, angles: ArrayList<Double>, sins: ArrayLi
             }
             else if ((abs(sides[2])<0.000001) && !(abs(angles[1])<0.000001)){
                 sides[2] = (sin(Math.toRadians(angles[1]))*sides[0])/sins[2]
+            }
+        }
+
+        //радиус
+        if (abs(R.value)<0.000001){
+            if (!(abs(sides[0])<0.000001) && !(abs(sins[2])<0.000001)){
+                R.value = (sides[0])/(2*sins[2])
+            }
+            else if (!(abs(sides[1])<0.000001) && !(abs(sins[0])<0.000001)){
+                R.value = (sides[1])/(2*sins[0])
+            }
+            else if (!(abs(sides[2])<0.000001) && !(abs(sins[1])<0.000001)){
+                R.value = (sides[2])/(2*sins[1])
             }
         }
 
@@ -136,19 +156,18 @@ fun SineCount(sides: ArrayList<Double>, angles: ArrayList<Double>, sins: ArrayLi
 
 
     //радиус
-    var R = 0.0
-    if (!(abs(sides[0])<0.000001) && !(abs(angles[2])<0.0000001)){
-        R = sides[0]/(2*sin(Math.toRadians(angles[2])))
-    }
-    else if (!(abs(sides[1])<0.000001) && !(abs(angles[0])<0.0000001)){
-        R = sides[1]/(2*sin(Math.toRadians(angles[0])))
-    }
-    else if (!(abs(sides[2])<0.000001) && !(abs(angles[1])<0.0000001)){
-        R = sides[2]/(2*sin(Math.toRadians(angles[1])))
+    if (abs(R.value)<0.000001) {
+        if (!(abs(sides[0]) < 0.000001) && !(abs(angles[2]) < 0.0000001)) {
+            R.value = sides[0] / (2 * sin(Math.toRadians(angles[2])))
+        } else if (!(abs(sides[1]) < 0.000001) && !(abs(angles[0]) < 0.0000001)) {
+            R.value = sides[1] / (2 * sin(Math.toRadians(angles[0])))
+        } else if (!(abs(sides[2]) < 0.000001) && !(abs(angles[1]) < 0.0000001)) {
+            R.value = sides[2] / (2 * sin(Math.toRadians(angles[1])))
+        }
     }
     val result = ArrayList<Double>()
     result.addAll(sides)
     result.addAll(angles)
-    result.add(R)
+    result.add(R.value)
     return result
 }

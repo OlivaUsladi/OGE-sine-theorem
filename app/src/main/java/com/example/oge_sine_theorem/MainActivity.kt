@@ -31,8 +31,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Высчитывание углов
-//Добавить возможность введения синуса (косинуса)?
+//нет задачи через R
+//нет обработки случая 3s6/2 (корень и дробь одновременно)
+//нет косинуса
 @Composable
 fun AppNavigation(navController: NavHostController) {
     NavHost(

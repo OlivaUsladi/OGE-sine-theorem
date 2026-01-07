@@ -246,7 +246,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val ab = AB.value.split("s")
                 ABDouble.value = ab[0].toDouble()* sqrt( ab[1].toDouble())
             }
-            if (AB.value.contains("/")){
+            else if (AB.value.contains("/")){
                 val ab = AB.value.split("/")
                 ABDouble.value = ab[0].toDouble()/ab[1].toDouble()
             }
@@ -262,7 +262,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val bc = BC.value.split("s")
                 BCDouble.value = bc[0].toDouble() * sqrt( bc[1].toDouble())
             }
-            if (BC.value.contains("/")){
+            else if (BC.value.contains("/")){
                 val bc = BC.value.split("/")
                 BCDouble.value = bc[0].toDouble()/bc[1].toDouble()
             }
@@ -278,7 +278,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val ac = AC.value.split("s")
                 ACDouble.value = ac[0].toDouble()* sqrt( ac[1].toDouble())
             }
-            if (AC.value.contains("/")){
+            else if (AC.value.contains("/")){
                 val ac = AC.value.split("/")
                 ACDouble.value = ac[0].toDouble()/ac[1].toDouble()
             }
@@ -295,7 +295,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val asin = Asin.value.split("s")
                 AsinDouble.value = asin[0].toDouble()* sqrt( asin[1].toDouble())
             }
-            if (Asin.value.contains("/")){
+            else if (Asin.value.contains("/")){
                 val asin = Asin.value.split("/")
                 AsinDouble.value = asin[0].toDouble()/asin[1].toDouble()
             }
@@ -311,7 +311,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val bsin = Bsin.value.split("s")
                 BsinDouble.value = bsin[0].toDouble()* sqrt( bsin[1].toDouble())
             }
-            if (Bsin.value.contains("/")){
+            else if (Bsin.value.contains("/")){
                 val bsin = Bsin.value.split("/")
                 BsinDouble.value = bsin[0].toDouble()/bsin[1].toDouble()
             }
@@ -327,7 +327,7 @@ fun CanvasPage(navController: NavHostController, A: String, B: String, C: String
                 val csin = Csin.value.split("s")
                 CsinDouble.value = csin[0].toDouble()* sqrt( csin[1].toDouble())
             }
-            if (Csin.value.contains("/")){
+            else if (Csin.value.contains("/")){
                 val csin = Csin.value.split("/")
                 CsinDouble.value = csin[0].toDouble()/csin[1].toDouble()
             }
