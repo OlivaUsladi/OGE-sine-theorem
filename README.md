@@ -25,3 +25,13 @@
 <img width="573" height="1280" alt="image" src="https://github.com/user-attachments/assets/354543d2-2266-4b18-b9d4-73ba2e4394ed" />
 
 
+Задача:
+
+<img width="944" height="246" alt="image" src="https://github.com/user-attachments/assets/c77f17e1-706a-45fe-80ad-b103236f53b7" />
+
+Решение:
+
+<img width="573" height="1280" alt="image" src="https://github.com/user-attachments/assets/89608948-4597-4167-bb77-4adc851bc794" />
+
+<img width="573" height="1280" alt="image" src="https://github.com/user-attachments/assets/4f204fc7-1b07-436f-826d-32c216e22412" />
+
